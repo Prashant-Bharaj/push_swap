@@ -12,19 +12,19 @@
 
         **Visualization of `ra` (rotate A):**
         ```
-        Before:          After:
-        Stack A:         Stack A:
-        ┌─────┐          ┌─────┐
-        │  3  │  ← top   │  2  │  ← top
-        ├─────┤          ├─────┤
-        │  2  │          │  1  │
-        ├─────┤          ├─────┤
-        │  1  │          │  5  │
-        ├─────┤          ├─────┤
-        │  5  │          │  4  │
-        ├─────┤          ├─────┤
-        │  4  │  ← bottom│  3  │  ← bottom
-        └─────┘          └─────┘
+        Before:                 After:
+        Stack A:                Stack A:
+        ┌─────┐                 ┌─────┐
+        │  3  │  ← top          │  2  │  ← top
+        ├─────┤                 ├─────┤
+        │  2  │                 │  1  │
+        ├─────┤                 ├─────┤
+        │  1  │                 │  5  │
+        ├─────┤                 ├─────┤
+        │  5  │                 │  4  │
+        ├─────┤                 ├─────┤
+        │  4  │  ← bottom       │  3  │  ← bottom
+        └─────┘                 └─────┘
         
         Operation: ra
         Result: Top element (3) moves to bottom, all others shift up
@@ -43,6 +43,8 @@
         mapfile -t N < <(cat test_500.txt | tr -d '\r' | grep -v '^$'); ./push_swap "${N[@]}" | ./checker_linux "${N[@]}"
     ```
 # Resources
+    - https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/description/
+    - https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/editorial/
 
 # Usage
 
