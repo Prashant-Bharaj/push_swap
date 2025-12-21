@@ -59,9 +59,11 @@ SHARED_FILES = stack.c \
 			sort_small.c \
 			sort_large.c \
 			rotation_helpers.c \
+			rotation_helpers_2.c \
 			insertion_helpers.c \
 			lis.c \
 			lis_helpers.c \
+			lis_helpers_2.c \
 			cost.c \
 			cost_helpers.c
 
