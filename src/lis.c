@@ -6,10 +6,9 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 22:54:21 by prasingh          #+#    #+#             */
-/*   Updated: 2025/12/19 22:54:22 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/12/21 17:52:31 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "push_swap.h"
 
@@ -34,21 +33,6 @@ static int	*compute_and_build_lis(int *arr, int *dp, int *prev, int size)
 		return (NULL);
 	lis_arr = build_lis_array(arr, prev, max_idx, lis_size);
 	return (lis_arr);
-}
-
-static int	get_lis_size_from_dp(int *dp, int size)
-{
-	int	max_idx;
-
-	max_idx = find_max_index(dp, size);
-	return (dp[max_idx]);
-}
-
-static void	free_lis_resources(int *arr, int *dp, int *prev)
-{
-	free(arr);
-	free(dp);
-	free(prev);
 }
 
 int	*find_lis_sequence(t_stack *stack, int *lis_size)
@@ -77,20 +61,6 @@ int	*find_lis_sequence(t_stack *stack, int *lis_size)
 	}
 	free_lis_resources(arr, dp, prev);
 	return (lis_arr);
-}
-
-int	is_in_lis(t_stack_node *node, int *lis_arr, int lis_size)
-{
-	int	i;
-
-	i = 0;
-	while (i < lis_size)
-	{
-		if (node->index == lis_arr[i])
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 void	calculate_lis(t_stack *stack)

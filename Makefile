@@ -6,7 +6,7 @@
 #    By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/19 22:55:07 by prasingh          #+#    #+#              #
-#    Updated: 2025/12/21 15:19:21 by prasingh         ###   ########.fr        #
+#    Updated: 2025/12/21 17:48:43 by prasingh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,11 @@ SRC_FILES = main.c \
 			sort_small.c \
 			sort_large.c \
 			rotation_helpers.c \
+			rotation_helpers_2.c \
 			insertion_helpers.c \
 			lis.c \
 			lis_helpers.c \
+			lis_helpers_2.c \
 			cost.c \
 			cost_helpers.c
 

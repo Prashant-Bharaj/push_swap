@@ -6,15 +6,15 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 15:27:42 by prasingh          #+#    #+#             */
-/*   Updated: 2025/12/21 15:27:42 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/12/21 16:06:38 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	init_checker_data(t_data *data, int argc, char **argv);
-int		read_line(char **line);
-void	execute_instruction(t_data *data, char *instruction);
+void		init_checker_data(t_data *data, int argc, char **argv);
+int			read_line(char **line);
+void		execute_instruction(t_data *data, char *instruction);
 
 static void	process_instructions(t_data *data)
 {

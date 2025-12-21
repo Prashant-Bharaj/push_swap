@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "push_swap.h"
 
 void	push_non_lis_elements_to_b(t_data *data, int *lis_arr, int lis_size)

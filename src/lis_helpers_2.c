@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations_a.c                                     :+:      :+:    :+:   */
+/*   lis_helpers_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/19 22:53:59 by prasingh          #+#    #+#             */
-/*   Updated: 2025/12/19 22:54:00 by prasingh         ###   ########.fr       */
+/*   Created: 2025/12/21 17:48:23 by prasingh          #+#    #+#             */
+/*   Updated: 2025/12/21 17:52:24 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sa(t_stack *a)
+int	is_in_lis(t_stack_node *node, int *lis_arr, int lis_size)
 {
-	swap_top_two_nodes(a);
-	ft_putstr("sa\n");
+	int	i;
+
+	i = 0;
+	while (i < lis_size)
+	{
+		if (node->index == lis_arr[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-void	ra(t_stack *a)
+int	get_lis_size_from_dp(int *dp, int size)
 {
-	rotate_stack_forward(a);
-	ft_putstr("ra\n");
+	int	max_idx;
+
+	max_idx = find_max_index(dp, size);
+	return (dp[max_idx]);
 }
 
-void	rra(t_stack *a)
+void	free_lis_resources(int *arr, int *dp, int *prev)
 {
-	rotate_stack_backward(a);
-	ft_putstr("rra\n");
-}
-
-void	pa(t_stack *a, t_stack *b)
-{
-	t_stack_node	*node;
-
-	if (!a || !b || !b->top)
-		return ;
-	node = pop_node(b);
-	push_node(a, node);
-	ft_putstr("pa\n");
+	free(arr);
+	free(dp);
+	free(prev);
 }

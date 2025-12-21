@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 15:15:00 by prasingh          #+#    #+#             */
-/*   Updated: 2025/12/21 15:27:23 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/12/21 17:55:27 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	read_line(char **line)
 
 	result = NULL;
 	len = 0;
-	while ((bytes = read_char(&c)) > 0)
+	bytes = read_char(&c);
+	while (bytes > 0)
 	{
 		if (c == '\n')
 			break ;
@@ -77,6 +78,7 @@ int	read_line(char **line)
 		if (!result)
 			return (0);
 		len++;
+		bytes = read_char(&c);
 	}
 	if (!handle_eof(bytes, len, line))
 		return (0);
