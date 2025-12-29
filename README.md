@@ -2,7 +2,7 @@
 
 # Pushswap
 
-# Description# Pushswap
+# Description
     Push swap is an algorithmic problem, which states that sort the elements of stack A.
     we have the following this provide for the sortation:
     1. There is stack B, which can be used store number from stack A.
@@ -54,6 +54,9 @@
 5. now to cross verify for the checker
 6. Run `make bonus` it will create `checker` program, which we can use to verify our output.
 7. we can use  `./push_swap 1 2 3 4 | ./checker 1 2 3 4`
+
+# AI Usage:
+- For branstorming different ideas to solve the push swap problem, mainly algorithms like radix sort, LIS.
 
 # Feature list
 1. Generate the optimal number of allowed operation to sort the elements with stacks.

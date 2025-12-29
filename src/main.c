@@ -29,8 +29,13 @@ static void	init_data(t_data *data, int argc, char **argv)
 	i = data->size - 1;
 	while (i >= 0)
 	{
+		t_stack_node	*node;
+
 		data->arr[i] = ft_atoi(argv[i + 1]);
-		push_node(data->a, create_node(data->arr[i]));
+		node = create_node(data->arr[i]);
+		if (!node)
+			error_exit(data, "Error\n");
+		push_node(data->a, node);
 		i--;
 	}
 }

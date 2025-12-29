@@ -76,7 +76,10 @@ int	read_line(char **line)
 			break ;
 		result = append_char(result, c, len);
 		if (!result)
+		{
+			*line = NULL;
 			return (0);
+		}
 		len++;
 		bytes = read_char(&c);
 	}

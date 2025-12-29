@@ -15,9 +15,14 @@
 static int	*allocate_dp_arrays(int size, int **dp, int **prev)
 {
 	*dp = malloc(sizeof(int) * size);
-	*prev = malloc(sizeof(int) * size);
-	if (!*dp || !*prev)
+	if (!*dp)
 		return (NULL);
+	*prev = malloc(sizeof(int) * size);
+	if (!*prev)
+	{
+		free(*dp);
+		return (NULL);
+	}
 	return (*dp);
 }
 

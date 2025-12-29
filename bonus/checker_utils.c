@@ -54,10 +54,19 @@ static void	fill_stack(t_data *data, char **argv)
 	i = data->size - 1;
 	while (i >= 0)
 	{
+		t_stack_node	*node;
+
 		value = ft_atoi(argv[i + 1]);
 		validate_value(value, argv[i + 1], data);
 		data->arr[i] = value;
-		push_node(data->a, create_node(data->arr[i]));
+		node = create_node(data->arr[i]);
+		if (!node)
+		{
+			free_data(data);
+			write(2, "Error\n", 6);
+			exit(1);
+		}
+		push_node(data->a, node);
 		i--;
 	}
 }
