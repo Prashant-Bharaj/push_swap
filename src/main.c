@@ -30,8 +30,8 @@ static int	count_numbers(int argc, char **argv)
 			if (argv[i][j])
 			{
 				count++;
-				while (argv[i][j] && argv[i][j] != ' '
-					&& (argv[i][j] < 9 || argv[i][j] > 13))
+				while (argv[i][j] && argv[i][j] != ' ' && (argv[i][j] < 9
+						|| argv[i][j] > 13))
 					j++;
 			}
 		}
@@ -59,8 +59,8 @@ static void	parse_and_add_numbers(t_data *data, int argc, char **argv)
 			{
 				data->arr[idx] = ft_atoi(argv[i] + j);
 				idx++;
-				while (argv[i][j] && argv[i][j] != ' '
-					&& (argv[i][j] < 9 || argv[i][j] > 13))
+				while (argv[i][j] && argv[i][j] != ' ' && (argv[i][j] < 9
+						|| argv[i][j] > 13))
 					j++;
 			}
 		}

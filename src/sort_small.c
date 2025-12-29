@@ -39,7 +39,8 @@ void	sort_three_elements(t_stack *a)
 		rra(a);
 }
 
-static int	find_smallest_two(t_stack *stack, int *smallest, int *second_smallest)
+static int	find_smallest_two(t_stack *stack, int *smallest,
+		int *second_smallest)
 {
 	t_stack_node	*current;
 	int				min1;
@@ -79,7 +80,8 @@ static void	push_two_smallest_to_b(t_data *data)
 		if (pos1 == 0 || pos2 == 0)
 		{
 			pb(data->a, data->b);
-			if (data->b->size == 2 && data->b->top->value < data->b->top->next->value)
+			if (data->b->size == 2
+				&& data->b->top->value < data->b->top->next->value)
 				sb(data->b);
 		}
 		else

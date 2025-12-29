@@ -37,8 +37,8 @@ int	ft_atoi(const char *str)
 			return (0);
 		if (sign == -1 && result > (long)-(long)INT_MIN / 10)
 			return (0);
-		if (sign == -1 && result == (long)-(long)INT_MIN / 10 && 
-			str[i] - '0' > -(INT_MIN % 10))
+		if (sign == -1 && result == (long)-(long)INT_MIN / 10 && str[i] - '0' >
+			-(INT_MIN % 10))
 			return (0);
 		result = result * 10 + (str[i] - '0');
 		i++;
