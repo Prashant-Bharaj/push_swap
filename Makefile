@@ -29,6 +29,8 @@ SRC_FILES = main.c \
 			operations_b.c \
 			operations_both.c \
 			validation.c \
+			validation_helpers.c \
+			validation_token.c \
 			io.c \
 			atoi.c \
 			indexing.c \
@@ -51,6 +53,8 @@ SHARED_FILES = stack.c \
 			operations_b.c \
 			operations_both.c \
 			validation.c \
+			validation_helpers.c \
+			validation_token.c \
 			io.c \
 			atoi.c \
 			indexing.c \

@@ -88,6 +88,10 @@ void					ss(t_stack *a, t_stack *b);
 void					rr(t_stack *a, t_stack *b);
 void					rrr(t_stack *a, t_stack *b);
 
+int						check_overflow(const char *str);
+
+int						validate_string_with_spaces(const char *str);
+
 int						validate_args(int argc, char **argv);
 
 int						has_duplicates(int *arr, int size);
