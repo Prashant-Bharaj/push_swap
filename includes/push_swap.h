@@ -100,12 +100,30 @@ void					ft_putstr(char *str);
 
 int						ft_atoi(const char *str);
 
+int						count_numbers(int argc, char **argv);
+
+void					parse_and_add_numbers(t_data *data, int argc,
+							char **argv);
+
+void					build_stack(t_data *data);
+
+void					init_data(t_data *data, int argc, char **argv);
+
 void					index_stack(t_stack *stack);
 
 void					error_exit(t_data *data, char *message);
 void					free_data(t_data *data);
 
 void					sort_three_elements(t_stack *a);
+
+int						find_smallest_two(t_stack *stack, int *smallest,
+							int *second_smallest);
+
+void					push_two_smallest_to_b(t_data *data);
+
+void					insert_from_b_optimally(t_data *data);
+
+void					rotate_to_minimum(t_data *data);
 
 void					sort_five_elements(t_data *data);
 

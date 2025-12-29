@@ -23,6 +23,7 @@ BONUS_DIR = bonus
 OBJ_DIR = obj
 
 SRC_FILES = main.c \
+			main_helpers.c \
 			stack.c \
 			operation_helpers.c \
 			operations_a.c \
@@ -33,10 +34,13 @@ SRC_FILES = main.c \
 			validation_token.c \
 			io.c \
 			atoi.c \
+			atoi_helpers.c \
 			indexing.c \
 			memory.c \
 			stack_utils.c \
 			sort_small.c \
+			sort_small_helpers.c \
+			sort_five_helpers.c \
 			sort_large.c \
 			rotation_helpers.c \
 			rotation_helpers_2.c \
@@ -57,10 +61,13 @@ SHARED_FILES = stack.c \
 			validation_token.c \
 			io.c \
 			atoi.c \
+			atoi_helpers.c \
 			indexing.c \
 			memory.c \
 			stack_utils.c \
 			sort_small.c \
+			sort_small_helpers.c \
+			sort_five_helpers.c \
 			sort_large.c \
 			rotation_helpers.c \
 			rotation_helpers_2.c \
