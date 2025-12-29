@@ -14,7 +14,8 @@
 
 static void	init_data(t_data *data, int argc, char **argv)
 {
-	int	i;
+	int				i;
+	t_stack_node	*node;
 
 	data->a = malloc(sizeof(t_stack));
 	data->b = malloc(sizeof(t_stack));
@@ -29,8 +30,6 @@ static void	init_data(t_data *data, int argc, char **argv)
 	i = data->size - 1;
 	while (i >= 0)
 	{
-		t_stack_node	*node;
-
 		data->arr[i] = ft_atoi(argv[i + 1]);
 		node = create_node(data->arr[i]);
 		if (!node)
