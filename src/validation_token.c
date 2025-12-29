@@ -12,26 +12,21 @@
 
 #include "push_swap.h"
 
-static int	validate_single_token(const char *str)
-{
-	int	j;
+int	copy_token_with_sign(const char *str, int start, int end, char *temp);
 
-	if (!str || !str[0])
+static int	validate_token_substring(const char *str, int start, int end)
+{
+	char	temp[12];
+	int		len;
+
+	if (!str || start >= end)
 		return (0);
-	j = 0;
-	if (str[j] == '-' || str[j] == '+')
-		j++;
-	if (!str[j])
+	len = end - start;
+	if (len > 11)
 		return (0);
-	while (str[j])
-	{
-		if (str[j] < '0' || str[j] > '9')
-			return (0);
-		j++;
-	}
-	if (check_overflow(str))
+	if (!copy_token_with_sign(str, start, end, temp))
 		return (0);
-	return (1);
+	return (!check_overflow(temp));
 }
 
 static int	skip_whitespace(const char *str, int pos)
@@ -59,7 +54,7 @@ static int	process_token(const char *str, int start, int *found_token)
 	if (end > start)
 	{
 		*found_token = 1;
-		if (!validate_single_token(str + start))
+		if (!validate_token_substring(str, start, end))
 			return (-1);
 	}
 	return (end);

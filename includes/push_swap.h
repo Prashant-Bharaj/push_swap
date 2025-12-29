@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 11:49:47 by prasingh          #+#    #+#             */
-/*   Updated: 2025/12/29 19:21:34 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/12/29 20:01:42 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ void					ss(t_stack *a, t_stack *b);
 
 void					rr(t_stack *a, t_stack *b);
 void					rrr(t_stack *a, t_stack *b);
+
+int						copy_token_with_sign(const char *str, int start,
+							int end, char *temp);
 
 int						check_overflow(const char *str);
 

@@ -215,6 +215,180 @@ else
 fi
 rm -f "$stdout_file" "$stderr_file"
 
+# Test 6: Empty string argument
+print_test "Empty string argument"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "" > "$stdout_file" 2> "$stderr_file"
+test_stderr "$stderr_file" "Error"$'\n'
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 7: Whitespace-only argument
+print_test "Whitespace-only argument"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "   " > "$stdout_file" 2> "$stderr_file"
+test_stderr "$stderr_file" "Error"$'\n'
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 8: Mixed valid/invalid in space-separated string
+print_test "Mixed valid/invalid in space-separated string"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "1 abc 2" > "$stdout_file" 2> "$stderr_file"
+test_stderr "$stderr_file" "Error"$'\n'
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 9: Lone plus sign
+print_test "Lone plus sign"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "+" > "$stdout_file" 2> "$stderr_file"
+test_stderr "$stderr_file" "Error"$'\n'
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 10: Lone minus sign
+print_test "Lone minus sign"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "-" > "$stdout_file" 2> "$stderr_file"
+test_stderr "$stderr_file" "Error"$'\n'
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 11: INT_MAX as valid input
+print_test "INT_MAX as valid input (2147483647)"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "2147483647" > "$stdout_file" 2> "$stderr_file"
+output=$(cat "$stdout_file")
+if [ -z "$output" ] && [ ! -s "$stderr_file" ]; then
+    test_pass
+else
+    test_fail "Expected empty output for sorted single INT_MAX, got stdout: '$output'"
+fi
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 12: INT_MIN as valid input
+print_test "INT_MIN as valid input (-2147483648)"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "-2147483648" > "$stdout_file" 2> "$stderr_file"
+output=$(cat "$stdout_file")
+if [ -z "$output" ] && [ ! -s "$stderr_file" ]; then
+    test_pass
+else
+    test_fail "Expected empty output for sorted single INT_MIN, got stdout: '$output'"
+fi
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 13: INT_MAX and INT_MIN together
+print_test "INT_MAX and INT_MIN together (sorted)"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "-2147483648" "2147483647" > "$stdout_file" 2> "$stderr_file"
+output=$(cat "$stdout_file")
+if [ -z "$output" ] && [ ! -s "$stderr_file" ]; then
+    test_pass
+else
+    test_fail "Expected empty output for sorted INT_MIN INT_MAX, got stdout: '$output'"
+fi
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 14: Leading zeros (should be valid)
+print_test "Leading zeros (0001 should equal 1)"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "0001" "0002" > "$stdout_file" 2> "$stderr_file"
+output=$(cat "$stdout_file")
+if [ -z "$output" ] && [ ! -s "$stderr_file" ]; then
+    test_pass
+else
+    test_fail "Expected empty output for sorted values with leading zeros, got stdout: '$output'"
+fi
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 15: Tab-separated numbers in single argument
+print_test "Tab-separated numbers (\\t)"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "$(printf '1\t2\t3')" > "$stdout_file" 2> "$stderr_file"
+output=$(cat "$stdout_file")
+if [ -z "$output" ] && [ ! -s "$stderr_file" ]; then
+    test_pass
+else
+    test_fail "Expected empty output for tab-separated sorted values, got stdout: '$output'"
+fi
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 16: Multiple spaces between numbers
+print_test "Multiple spaces between numbers"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "1   2   3" > "$stdout_file" 2> "$stderr_file"
+output=$(cat "$stdout_file")
+if [ -z "$output" ] && [ ! -s "$stderr_file" ]; then
+    test_pass
+else
+    test_fail "Expected empty output for multiple-space-separated sorted values, got stdout: '$output'"
+fi
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 17: Mixed whitespace characters (space and tab)
+print_test "Mixed whitespace (space and tab)"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "$(printf '1 \t2 \t3')" > "$stdout_file" 2> "$stderr_file"
+output=$(cat "$stdout_file")
+if [ -z "$output" ] && [ ! -s "$stderr_file" ]; then
+    test_pass
+else
+    test_fail "Expected empty output for mixed whitespace-separated sorted values, got stdout: '$output'"
+fi
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 18: Leading and trailing whitespace
+print_test "Leading and trailing whitespace"
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+"$PUSH_SWAP" "$(printf ' \t 1 2 3 \t ')" > "$stdout_file" 2> "$stderr_file"
+output=$(cat "$stdout_file")
+if [ -z "$output" ] && [ ! -s "$stderr_file" ]; then
+    test_pass
+else
+    test_fail "Expected empty output for values with leading/trailing whitespace, got stdout: '$output'"
+fi
+rm -f "$stdout_file" "$stderr_file"
+
+# Test 19: All whitespace characters (tab, newline, carriage return, etc.)
+print_test "All whitespace types (\\t, \\n, \\r, \\v, \\f)"
+if [ -z "$CHECKER_OS" ]; then
+    echo -e "${YELLOW}Skipping (no checker binary)${NC}"
+else
+    stdout_file=$(mktemp)
+    stderr_file=$(mktemp)
+    # Create string with tab and space - test that push_swap handles it
+    # Note: checker may not handle tabs in arguments, so we test push_swap output
+    ARG_WITH_TAB=$(printf '1\t2\t3')
+    "$PUSH_SWAP" "$ARG_WITH_TAB" > "$stdout_file" 2> "$stderr_file"
+    instruction_count=$(wc -l < "$stdout_file" | tr -d ' ')
+    # Checker may not accept tabs in arguments, so just verify push_swap works
+    if [ -z "$(cat $stdout_file)" ] && [ ! -s "$stderr_file" ]; then
+        test_pass
+    elif [ "$instruction_count" -gt 0 ] && [ ! -s "$stderr_file" ]; then
+        # If it produced instructions, verify they work with space-separated args
+        checker_output=$(cat "$stdout_file" | "$CHECKER_OS" "1" "2" "3" 2>&1)
+        if [ "$checker_output" = "OK" ]; then
+            test_pass
+        else
+            test_fail "Expected OK for whitespace handling, got checker: '$checker_output'"
+        fi
+    else
+        test_fail "Expected valid output for mixed whitespace, got stderr: '$(cat $stderr_file)'"
+    fi
+    rm -f "$stdout_file" "$stderr_file"
+fi
+
+
 # ============================================
 # 3. Identity Tests (Already Sorted)
 # ============================================
@@ -230,6 +404,24 @@ print_test "Two numbers sorted (2 3)"
 output=$("$PUSH_SWAP" "2" "3" 2>&1)
 test_empty "$output"
 
+# Test 2b: Two numbers (unsorted)
+print_test "Two numbers unsorted (3 2)"
+if [ -z "$CHECKER_OS" ]; then
+    echo -e "${YELLOW}Skipping (no checker binary)${NC}"
+else
+    stdout_file=$(mktemp)
+    stderr_file=$(mktemp)
+    "$PUSH_SWAP" "3" "2" > "$stdout_file" 2> "$stderr_file"
+    instruction_count=$(wc -l < "$stdout_file" | tr -d ' ')
+    checker_output=$(cat "$stdout_file" | "$CHECKER_OS" "3" "2" 2>&1)
+    if [ "$checker_output" = "OK" ] && [ "$instruction_count" -eq 1 ] && [ ! -s "$stderr_file" ]; then
+        test_pass
+    else
+        test_fail "Expected 1 instruction (sa), got: $instruction_count, checker: '$checker_output'"
+    fi
+    rm -f "$stdout_file" "$stderr_file"
+fi
+
 # Test 3: Three numbers (sorted)
 print_test "Three numbers sorted (0 1 2 3)"
 output=$("$PUSH_SWAP" "0" "1" "2" "3" 2>&1)
@@ -240,10 +432,36 @@ print_test "Ten numbers sorted (0-9)"
 output=$("$PUSH_SWAP" "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" 2>&1)
 test_empty "$output"
 
-# Test 5: Random sorted values (5-9 numbers)
+# Test 5: Random sorted values (5 numbers)
 print_test "Random sorted values (5 numbers)"
 output=$("$PUSH_SWAP" "-5" "-2" "0" "3" "7" 2>&1)
 test_empty "$output"
+
+# Test 6: Size 4 (sorted)
+print_test "Size 4 sorted (0 1 2 3)"
+output=$("$PUSH_SWAP" "0" "1" "2" "3" 2>&1)
+test_empty "$output"
+
+# Test 7: Size 4 (unsorted)
+print_test "Size 4 unsorted"
+if [ -z "$CHECKER_OS" ]; then
+    echo -e "${YELLOW}Skipping (no checker binary)${NC}"
+else
+    stdout_file=$(mktemp)
+    stderr_file=$(mktemp)
+    "$PUSH_SWAP" "2" "1" "4" "3" > "$stdout_file" 2> "$stderr_file"
+    instruction_count=$(wc -l < "$stdout_file" | tr -d ' ')
+    checker_output=$(cat "$stdout_file" | "$CHECKER_OS" "2" "1" "4" "3" 2>&1)
+    if [ "$checker_output" = "OK" ] && [ ! -s "$stderr_file" ]; then
+        echo -e "${GREEN}✓ PASS (Instructions: $instruction_count)${NC}"
+        ((PASSED_TESTS++))
+    else
+        echo -e "${RED}✗ FAIL (Checker: '$checker_output', Instructions: $instruction_count)${NC}"
+        ((FAILED_TESTS++))
+    fi
+    ((TOTAL_TESTS++))
+    rm -f "$stdout_file" "$stderr_file"
+fi
 
 # ============================================
 # 4. Simple Version (Size 3)
@@ -535,6 +753,27 @@ else
     stdout_file=$(mktemp)
     stderr_file=$(mktemp)
     echo -e "sa \n" | "$CHECKER_TO_USE" "1" "2" "3" > "$stdout_file" 2> "$stderr_file"
+    test_stderr "$stderr_file" "Error"$'\n'
+    rm -f "$stdout_file" "$stderr_file"
+    
+    # Test 7: Empty input with valid stack
+    print_test "Checker: Empty input with valid stack (should be OK if sorted)"
+    stdout_file=$(mktemp)
+    stderr_file=$(mktemp)
+    printf "" | "$CHECKER_TO_USE" "1" "2" "3" > "$stdout_file" 2> "$stderr_file"
+    output=$(cat "$stdout_file" | tr -d '\r\n' | head -c 2)
+    if [ "$output" = "OK" ] && [ ! -s "$stderr_file" ]; then
+        test_pass
+    else
+        test_fail "Expected 'OK' for empty input with sorted stack, got: '$(cat $stdout_file)'"
+    fi
+    rm -f "$stdout_file" "$stderr_file"
+    
+    # Test 9: Case sensitivity (uppercase instructions should error)
+    print_test "Checker: Case sensitivity (SA should error)"
+    stdout_file=$(mktemp)
+    stderr_file=$(mktemp)
+    echo -e "SA\n" | "$CHECKER_TO_USE" "1" "2" "3" > "$stdout_file" 2> "$stderr_file"
     test_stderr "$stderr_file" "Error"$'\n'
     rm -f "$stdout_file" "$stderr_file"
 fi

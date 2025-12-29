@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 22:53:31 by prasingh          #+#    #+#             */
-/*   Updated: 2025/12/29 19:21:34 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/12/29 20:01:42 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	sort_small_stack(t_data *data)
 	}
 	else if (data->size == 3)
 		sort_three_elements(data->a);
+	else if (data->size == 4)
+		sort_large_stack(data);
 	else if (data->size == 5)
 		sort_five_elements(data);
 }

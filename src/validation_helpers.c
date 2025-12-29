@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 18:00:00 by prasingh          #+#    #+#             */
-/*   Updated: 2025/12/29 19:21:34 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/12/29 20:01:42 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,27 @@ static int	check_length_and_compare(const char *str, int start, int sign)
 	else
 		limit = "2147483648";
 	return (compare_with_limit(str, i, limit));
+}
+
+int	copy_token_with_sign(const char *str, int start, int end, char *temp)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = start;
+	if (str[j] == '-' || str[j] == '+')
+		temp[i++] = str[j++];
+	if (j >= end)
+		return (0);
+	while (j < end)
+	{
+		if (str[j] < '0' || str[j] > '9')
+			return (0);
+		temp[i++] = str[j++];
+	}
+	temp[i] = '\0';
+	return (1);
 }
 
 int	check_overflow(const char *str)

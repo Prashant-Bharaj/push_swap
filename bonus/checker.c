@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 15:27:42 by prasingh          #+#    #+#             */
-/*   Updated: 2025/12/21 16:06:38 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/12/29 20:05:50 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	process_instructions(t_data *data)
 	while (read_line(&line))
 	{
 		if (!line)
-			break ;
+			continue ;
 		execute_instruction(data, line);
 		free(line);
 	}
