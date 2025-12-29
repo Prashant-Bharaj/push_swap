@@ -12,10 +12,20 @@
 
 #include "push_swap.h"
 
+static int	get_strlen(const char *str)
+{
+	int	len;
+
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
+}
+
 void	error_exit(t_data *data, char *message)
 {
 	if (message)
-		ft_putstr(message);
+		write(2, message, get_strlen(message));
 	if (data)
 		free_data(data);
 	exit(1);
