@@ -103,6 +103,8 @@ void					free_data(t_data *data);
 
 void					sort_three_elements(t_stack *a);
 
+void					sort_five_elements(t_data *data);
+
 void					sort_small_stack(t_data *data);
 
 void					sort_large_stack(t_data *data);

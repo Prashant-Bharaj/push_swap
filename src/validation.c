@@ -70,28 +70,68 @@ static int	check_overflow(const char *str)
 	return (0);
 }
 
+static int	validate_single_token(const char *str)
+{
+	int	j;
+
+	if (!str || !str[0])
+		return (0);
+	j = 0;
+	if (str[j] == '-' || str[j] == '+')
+		j++;
+	if (!str[j])
+		return (0);
+	while (str[j])
+	{
+		if (str[j] < '0' || str[j] > '9')
+			return (0);
+		j++;
+	}
+	if (check_overflow(str))
+		return (0);
+	return (1);
+}
+
+static int	validate_string_with_spaces(const char *str)
+{
+	int	start;
+	int	end;
+	int	found_token;
+
+	start = 0;
+	found_token = 0;
+	while (str[start])
+	{
+		while (str[start] == ' ' || (str[start] >= 9 && str[start] <= 13))
+			start++;
+		if (!str[start])
+			break ;
+		end = start;
+		while (str[end] && str[end] != ' ' && (str[end] < 9 || str[end] > 13))
+			end++;
+		if (end > start)
+		{
+			found_token = 1;
+			if (!validate_single_token(str + start))
+				return (0);
+		}
+		start = end;
+	}
+	if (!found_token)
+		return (0);
+	return (1);
+}
+
 int	validate_args(int argc, char **argv)
 {
 	int	i;
-	int	j;
 
 	if (argc < 2)
 		return (0);
 	i = 1;
 	while (i < argc)
 	{
-		j = 0;
-		if (argv[i][j] == '-' || argv[i][j] == '+')
-			j++;
-		if (!argv[i][j])
-			return (0);
-		while (argv[i][j])
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (0);
-			j++;
-		}
-		if (check_overflow(argv[i]))
+		if (validate_string_with_spaces(argv[i]) == 0)
 			return (0);
 		i++;
 	}
