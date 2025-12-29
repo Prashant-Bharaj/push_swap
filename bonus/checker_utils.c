@@ -48,14 +48,13 @@ static void	init_stacks(t_data *data)
 
 static void	fill_stack(t_data *data, char **argv)
 {
-	int	i;
-	int	value;
+	int				i;
+	int				value;
+	t_stack_node	*node;
 
 	i = data->size - 1;
 	while (i >= 0)
 	{
-		t_stack_node	*node;
-
 		value = ft_atoi(argv[i + 1]);
 		validate_value(value, argv[i + 1], data);
 		data->arr[i] = value;

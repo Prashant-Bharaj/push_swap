@@ -70,13 +70,12 @@ static void	parse_and_add_numbers(t_data *data, int argc, char **argv)
 
 static void	build_stack(t_data *data)
 {
-	int	i;
+	int				i;
+	t_stack_node	*node;
 
 	i = data->size - 1;
 	while (i >= 0)
 	{
-		t_stack_node	*node;
-
 		node = create_node(data->arr[i]);
 		if (!node)
 			error_exit(data, "Error\n");
