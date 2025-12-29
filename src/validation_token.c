@@ -60,7 +60,7 @@ static int	process_token(const char *str, int start, int *found_token)
 	{
 		*found_token = 1;
 		if (!validate_single_token(str + start))
-			return (0);
+			return (-1);
 	}
 	return (end);
 }
@@ -69,6 +69,7 @@ int	validate_string_with_spaces(const char *str)
 {
 	int	start;
 	int	found_token;
+	int	result;
 
 	start = 0;
 	found_token = 0;
@@ -77,7 +78,10 @@ int	validate_string_with_spaces(const char *str)
 		start = skip_whitespace(str, start);
 		if (!str[start])
 			break ;
-		start = process_token(str, start, &found_token);
+		result = process_token(str, start, &found_token);
+		if (result == -1)
+			return (0);
+		start = result;
 	}
 	if (!found_token)
 		return (0);
